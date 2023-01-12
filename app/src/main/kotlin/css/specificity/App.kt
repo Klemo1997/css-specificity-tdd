@@ -4,49 +4,18 @@
 package css.specificity
 
 import css.specificity.tokenizer.*
-import java.lang.StringBuilder
 
 fun main() {
     println(getSpecificity("*"))
 }
-
-typealias Specificity = Triple<Int, Int, Int>
 
 val chainDelimiter = """(\.|#)""".toRegex()
 private val delimiter = """[\s>+~]+""".toRegex()
 
 fun getSpecificity(selector: String): Specificity {
     val subSelectors = selector.trim().split(delimiter)
-
-    return subSelectors.map { tokenize(it).sum() }.sum()
-}
-
-fun valueOf(selector: String): Specificity = when {
-    ElementMatcher().isValid(selector) -> Specificity(0, 0, 1)
-    ClassMatcher().isValid(selector) -> Specificity(0, 1, 0)
-    IdMatcher().isValid(selector) -> Specificity(1, 0, 0)
-    else -> Specificity(0, 0, 0)
-}
-
-fun tokenize(selector: String): List<Specificity> {
-    val tokens = mutableListOf<Specificity>()
-
-    val buffer = StringBuilder()
-
-    for (char in selector) {
-        if (buffer.isNotEmpty() && char.toString().matches(chainDelimiter)) {
-            tokens.add(valueOf(buffer.toString()))
-            buffer.clear()
-        }
-
-        buffer.append(char)
-    }
-
-    if (buffer.isNotEmpty()) {
-        tokens.add(valueOf(buffer.toString()))
-    }
-
-    return tokens
+    val tokenizer = Tokenizer()
+    return subSelectors.map { tokenizer.tokenize(it).sum() }.sum()
 }
 
 fun List<Specificity>.sum() =
