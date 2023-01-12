@@ -11,7 +11,7 @@ fun main() {
 
 typealias Specificity = Triple<Int, Int, Int>
 
-val chainDelimiter = """\.""".toRegex()
+val chainDelimiter = """(\.|#)""".toRegex()
 private val delimiter = """[\s>+~]+""".toRegex()
 
 fun getSpecificity(selector: String): Specificity {
@@ -23,8 +23,11 @@ fun getSpecificity(selector: String): Specificity {
 fun valueOf(selector: String): Specificity = when {
     selector == "*" -> Specificity(0, 0, 0)
     isClass(selector) -> Specificity(0, 1, 0)
+    isId(selector) -> Specificity(1, 0, 0)
     else -> Specificity(0, 0, 1)
 }
+
+fun isId(selector: String): Boolean = selector.startsWith("#")
 
 fun isClass(selector: String): Boolean = selector.startsWith(".")
 
