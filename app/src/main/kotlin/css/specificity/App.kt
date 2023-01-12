@@ -9,7 +9,6 @@ fun main() {
     println(getSpecificity("*"))
 }
 
-val chainDelimiter = """(\.|#)""".toRegex()
 private val delimiter = """[\s>+~]+""".toRegex()
 
 fun getSpecificity(selector: String): Specificity {

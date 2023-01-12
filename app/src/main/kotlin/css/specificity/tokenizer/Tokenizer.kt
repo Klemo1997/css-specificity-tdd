@@ -1,11 +1,12 @@
 package css.specificity.tokenizer
 
-import css.specificity.chainDelimiter
 import java.lang.StringBuilder
 
 typealias Specificity = Triple<Int, Int, Int>
 
 class Tokenizer {
+    private val chainDelimiter = """(\.|#)""".toRegex()
+
     private fun valueOf(selector: String): Specificity = when {
         ElementMatcher().isValid(selector) -> Specificity(0, 0, 1)
         ClassMatcher().isValid(selector) -> Specificity(0, 1, 0)
