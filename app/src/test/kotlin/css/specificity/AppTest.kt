@@ -5,11 +5,11 @@ package css.specificity
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertSame
 
 class AppTest {
     @Test fun `It returns correct speficicity`() {
-        assertEquals(getSpecificity("*"), Triple(0,0,0))
+        mapOf(
+            Pair("*", Triple(0, 0, 0))
+        ).forEach { (selector, specificity) -> assertEquals(getSpecificity(selector), specificity) }
     }
 }
