@@ -15,7 +15,14 @@ class TokenizerTest {
             "#test" to listOf(Specificity(1, 0, 0)),
             "#test#test" to listOf(Specificity(1, 0, 0), Specificity(1, 0, 0)),
             "#test.test" to listOf(Specificity(1, 0, 0), Specificity(0, 1, 0)),
-            "div.test#test" to listOf(Specificity(0, 0, 1), Specificity(0, 1, 0), Specificity(1, 0, 0)),
-        ).forEach { (selector, specificity) -> assertEquals(specificity, Tokenizer().tokenize(selector)) }
+            "div.test#test" to listOf(
+                Specificity(0, 0, 1),
+                Specificity(0, 1, 0),
+                Specificity(1, 0, 0)),
+        ).forEach { (selector, tokens) -> assertEquals(
+            tokens,
+            Tokenizer().tokenize(selector),
+            "Tokenizer evaluates the selector: '$selector' to have specificity: ${tokens.joinToString(", ")}",
+        ) }
     }
 }

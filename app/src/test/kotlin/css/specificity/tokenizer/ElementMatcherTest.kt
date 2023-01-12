@@ -14,6 +14,10 @@ class ElementMatcherTest {
             "test" to true,
             """\.test""" to true,
             """\a""" to true,
-        ).forEach { (selector, isValid) ->  assertEquals(isValid, ElementMatcher().isValid(selector), selector) }
+        ).forEach { (selector, isValid) ->  assertEquals(
+            isValid,
+            ElementMatcher().isValid(selector),
+            "Selector '$selector' is treated as " + if (isValid) "a valid" else "an invalid" + " selector"
+        ) }
     }
 }

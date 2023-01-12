@@ -12,6 +12,10 @@ class ClassMatcherTest {
             """\.test""" to false,
             ".test" to true,
             ".another" to true,
-        ).forEach { (selector, isValid) ->  assertEquals(isValid, ClassMatcher().isValid(selector)) }
+        ).forEach { (selector, isValid) ->  assertEquals(
+            isValid,
+            ClassMatcher().isValid(selector),
+            "Selector '$selector' is treated as " + if (isValid) "a valid" else "an invalid" + " selector"
+        ) }
     }
 }

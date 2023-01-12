@@ -36,8 +36,8 @@ class AppTest {
             ".test#test#test" to Specificity(2, 1, 0),
         ).forEach {
             (selector, specificity) -> assertEquals(
-                getSpecificity(selector),
                 specificity,
+                getSpecificity(selector),
                 "It returns $specificity for '$selector'"
             )
         }
