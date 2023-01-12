@@ -9,8 +9,10 @@ fun main() {
 
 typealias Specificity = Triple<Int, Int, Int>
 
+private val delimiter = """\s+""".toRegex()
+
 fun getSpecificity(selector: String): Specificity {
-    val size = selector.split("""\s+""".toRegex()).size
+    val size = selector.split(delimiter).size
 
     return when(selector) {
         "*" -> Specificity(0, 0, 0)
