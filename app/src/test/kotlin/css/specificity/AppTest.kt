@@ -32,7 +32,7 @@ class AppTest {
             (selector, specificity) -> assertEquals(
                 getSpecificity(selector),
                 specificity,
-                "It returns $specificity for $selector"
+                "It returns $specificity for '$selector'"
             )
         }
     }
