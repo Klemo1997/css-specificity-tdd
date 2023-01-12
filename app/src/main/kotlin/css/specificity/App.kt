@@ -12,12 +12,22 @@ typealias Specificity = Triple<Int, Int, Int>
 private val delimiter = """[\s>+~]+""".toRegex()
 
 fun getSpecificity(selector: String): Specificity {
-    val size = selector.trim().split(delimiter).fold(0) { acc, subSelector -> acc + valueOf(subSelector) }
+    val specificity = selector.trim().split(delimiter).fold(Specificity(0, 0, 0)) {
+        acc, subSelector -> acc.add(valueOf(subSelector))
+    }
 
-    return Specificity(0, 0, size)
+    return specificity
 }
 
-fun valueOf(selector: String): Int = when (selector.trim()) {
-    "*" -> 0
-    else -> 1
+fun valueOf(selector: String): Specificity = when (selector.trim()) {
+    "*" -> Specificity(0, 0, 0)
+    else -> Specificity(0, 0, 1)
+}
+
+fun Specificity.add(other: Specificity): Specificity {
+    return Specificity(
+        this.first + other.first,
+        this.second + other.second,
+        this.third + other.third,
+    )
 }
