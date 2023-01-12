@@ -37,9 +37,9 @@ fun tokenize(selector: String): List<Specificity> {
         if (buffer.isNotEmpty() && char.toString().matches(chainDelimiter)) {
             tokens.add(valueOf(buffer.toString()))
             buffer.clear()
-        } else {
-            buffer.append(char)
         }
+
+        buffer.append(char)
     }
 
     if (buffer.isNotEmpty()) {

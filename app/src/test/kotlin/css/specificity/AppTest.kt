@@ -28,6 +28,7 @@ class AppTest {
             ".test" to Specificity(0, 1, 0),
             ".test .test2" to Specificity(0, 2, 0),
             "body .test .test2" to Specificity(0, 2, 1),
+            ".test.test" to Specificity(0, 2, 0),
         ).forEach {
             (selector, specificity) -> assertEquals(
                 getSpecificity(selector),
