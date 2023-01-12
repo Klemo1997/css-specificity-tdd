@@ -10,6 +10,7 @@ class AppTest {
     @Test fun `It returns correct speficicity`() {
         mapOf(
             "*" to Specificity(0, 0, 0),
+            "* div" to Specificity(0, 0, 1),
             "div" to Specificity(0, 0, 1),
             "body div" to Specificity(0, 0, 2),
             "body div li" to Specificity(0, 0, 3),
