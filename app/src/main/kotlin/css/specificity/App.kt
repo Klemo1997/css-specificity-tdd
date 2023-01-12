@@ -3,6 +3,7 @@
  */
 package css.specificity
 
+import css.specificity.tokenizer.*
 import java.lang.StringBuilder
 
 fun main() {
@@ -21,15 +22,11 @@ fun getSpecificity(selector: String): Specificity {
 }
 
 fun valueOf(selector: String): Specificity = when {
-    selector == "*" -> Specificity(0, 0, 0)
-    isClass(selector) -> Specificity(0, 1, 0)
-    isId(selector) -> Specificity(1, 0, 0)
-    else -> Specificity(0, 0, 1)
+    ElementMatcher().isValid(selector) -> Specificity(0, 0, 1)
+    ClassMatcher().isValid(selector) -> Specificity(0, 1, 0)
+    IdMatcher().isValid(selector) -> Specificity(1, 0, 0)
+    else -> Specificity(0, 0, 0)
 }
-
-fun isId(selector: String): Boolean = selector.startsWith("#")
-
-fun isClass(selector: String): Boolean = selector.startsWith(".")
 
 fun tokenize(selector: String): List<Specificity> {
     val tokens = mutableListOf<Specificity>()
