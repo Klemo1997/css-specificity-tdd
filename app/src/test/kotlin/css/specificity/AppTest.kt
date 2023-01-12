@@ -11,6 +11,7 @@ class AppTest {
         mapOf(
             "*" to Specificity(0, 0, 0),
             " * div " to Specificity(0, 0, 1),
+            "* div" to Specificity(0, 0, 1),
             "div" to Specificity(0, 0, 1),
             " div " to Specificity(0, 0, 1),
             "body div" to Specificity(0, 0, 2),
