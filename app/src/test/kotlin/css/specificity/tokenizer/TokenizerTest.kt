@@ -19,6 +19,8 @@ class TokenizerTest {
                 Specificity(0, 0, 1),
                 Specificity(0, 1, 0),
                 Specificity(1, 0, 0)),
+            "test[a]" to listOf(Specificity(0, 0, 1), Specificity(0, 1, 0)),
+            "test[a=1]" to listOf(Specificity(0, 0, 1), Specificity(0, 1, 0)),
         ).forEach { (selector, tokens) -> assertEquals(
             tokens,
             Tokenizer().tokenize(selector),
