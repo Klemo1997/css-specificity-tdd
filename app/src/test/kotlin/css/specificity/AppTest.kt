@@ -4,11 +4,12 @@
 package css.specificity
 
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertSame
 
 class AppTest {
-    @Test fun appHasAGreeting() {
-        assertSame(getSpecificity("*"), Triple(0,0,0))
+    @Test fun `It returns correct speficicity`() {
+        assertEquals(getSpecificity("*"), Triple(0,0,0))
     }
 }
