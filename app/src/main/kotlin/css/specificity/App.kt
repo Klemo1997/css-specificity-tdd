@@ -13,16 +13,19 @@ private val delimiter = """[\s>+~]+""".toRegex()
 
 fun getSpecificity(selector: String): Specificity {
     val specificity = selector.trim().split(delimiter).fold(Specificity(0, 0, 0)) {
-        acc, subSelector -> acc.add(valueOf(subSelector))
+        acc, subSelector -> acc.add(valueOf(subSelector.trim()))
     }
 
     return specificity
 }
 
-fun valueOf(selector: String): Specificity = when (selector.trim()) {
-    "*" -> Specificity(0, 0, 0)
+fun valueOf(selector: String): Specificity = when {
+    selector == "*" -> Specificity(0, 0, 0)
+    isClass(selector) -> Specificity(0, 1, 0)
     else -> Specificity(0, 0, 1)
 }
+
+fun isClass(selector: String): Boolean = selector.startsWith(".")
 
 fun Specificity.add(other: Specificity): Specificity {
     return Specificity(
