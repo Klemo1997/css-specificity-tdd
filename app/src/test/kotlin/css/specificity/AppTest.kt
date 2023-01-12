@@ -17,6 +17,9 @@ class AppTest {
             "body	div" to Specificity(0, 0, 2),
             """body\tdiv""" to Specificity(0, 0, 1),
             """body\%div""" to Specificity(0, 0, 1),
+            "body>div" to Specificity(0, 0, 2),
+            "body > div" to Specificity(0, 0, 2),
+            """body \> div""" to Specificity(0, 0, 3),
         ).forEach {
             (selector, specificity) -> assertEquals(
                 getSpecificity(selector),
