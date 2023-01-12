@@ -9,4 +9,10 @@ fun main() {
 
 typealias Specificity = Triple<Int, Int, Int>
 
-fun getSpecificity(selector: String) = Specificity(0,0,0)
+fun getSpecificity(selector: String): Specificity {
+    if (selector == "div") {
+        return Specificity(0,0,1)
+    }
+
+    return Specificity(0,0,0)
+}
