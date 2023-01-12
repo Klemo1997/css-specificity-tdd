@@ -10,9 +10,10 @@ fun main() {
 typealias Specificity = Triple<Int, Int, Int>
 
 fun getSpecificity(selector: String): Specificity {
-    if (selector == "div") {
-        return Specificity(0,0,1)
-    }
+    val size = selector.split(" ").size
 
-    return Specificity(0,0,0)
+    return when(selector) {
+        "*" -> Specificity(0, 0, 0)
+        else -> Specificity(0, 0, size)
+    }
 }
