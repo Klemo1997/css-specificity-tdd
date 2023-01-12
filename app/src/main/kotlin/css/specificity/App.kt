@@ -17,9 +17,7 @@ private val delimiter = """[\s>+~]+""".toRegex()
 fun getSpecificity(selector: String): Specificity {
     val subSelectors = selector.trim().split(delimiter)
 
-    return subSelectors.map { tokenize(it) }.flatten().fold(Specificity(0, 0, 0)) {
-        acc, subSpecificity -> acc.add(subSpecificity)
-    }
+    return subSelectors.map { tokenize(it).sum() }.sum()
 }
 
 fun valueOf(selector: String): Specificity = when {
@@ -50,6 +48,9 @@ fun tokenize(selector: String): List<Specificity> {
 
     return tokens
 }
+
+fun List<Specificity>.sum() =
+    this.fold(Specificity(0, 0, 0)) { acc, specificity -> acc.add(specificity) }
 
 fun Specificity.add(other: Specificity): Specificity {
     return Specificity(
