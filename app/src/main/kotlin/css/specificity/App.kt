@@ -7,4 +7,6 @@ fun main() {
     println(getSpecificity("*"))
 }
 
-fun getSpecificity(selector: String) = Triple(0,0,0)
+typealias Specificity = Triple<Int, Int, Int>
+
+fun getSpecificity(selector: String) = Specificity(0,0,0)

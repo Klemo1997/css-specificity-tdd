@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
 class AppTest {
     @Test fun `It returns correct speficicity`() {
         mapOf(
-            "*" to Triple(0, 0, 0),
+            "*" to Specificity(0, 0, 0),
         ).forEach { (selector, specificity) -> assertEquals(getSpecificity(selector), specificity) }
     }
 }
