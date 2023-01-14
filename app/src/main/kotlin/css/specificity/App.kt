@@ -9,13 +9,7 @@ fun main() {
     println(getSpecificity("*"))
 }
 
-private val delimiter = """[\s>+~]+""".toRegex()
-
-fun getSpecificity(selector: String): Specificity {
-    val subSelectors = selector.trim().split(delimiter)
-    val tokenizer = Tokenizer()
-    return subSelectors.map { tokenizer.tokenize(it).sum() }.sum()
-}
+fun getSpecificity(selector: String): Specificity = Tokenizer().tokenize(selector).sum()
 
 fun List<Specificity>.sum() =
     this.fold(Specificity(0, 0, 0)) { acc, specificity -> acc.add(specificity) }

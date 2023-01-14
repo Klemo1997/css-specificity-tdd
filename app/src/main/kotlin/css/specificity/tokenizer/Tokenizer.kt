@@ -1,10 +1,12 @@
 package css.specificity.tokenizer
 
 import java.lang.StringBuilder
+import java.util.*
 
 typealias Specificity = Triple<Int, Int, Int>
 
 class Tokenizer {
+    private val delimiter = """[\s>+~]+""".toRegex()
     private val chainDelimiter = """(\.|#|\[)""".toRegex()
 
     private fun valueOf(selector: String): Specificity = when {
@@ -17,20 +19,36 @@ class Tokenizer {
 
     fun tokenize(selector: String): List<Specificity> {
         val tokens = mutableListOf<Specificity>()
+        val s = Stack<String>()
 
-        val buffer = StringBuilder()
+        s.push(selector.trim())
 
-        for (char in selector) {
-            if (buffer.isNotEmpty() && char.toString().matches(chainDelimiter)) {
-                tokens.add(valueOf(buffer.toString()))
-                buffer.clear()
+        while (s.isNotEmpty()) {
+            val current = s.pop()
+            val subSelectors = current.trim().split(delimiter)
+
+            if (subSelectors.size > 1) {
+                subSelectors.forEach { s.push(it) }
+                continue
             }
 
-            buffer.append(char)
-        }
+            val buffer = StringBuilder()
+            val chainedSelectors = arrayListOf<String>()
 
-        if (buffer.isNotEmpty()) {
-            tokens.add(valueOf(buffer.toString()))
+            for (char in current) {
+                if (buffer.isNotEmpty() && char.toString().matches(chainDelimiter)) {
+                    chainedSelectors.add(buffer.toString())
+                    buffer.clear()
+                }
+
+                buffer.append(char)
+            }
+
+            if (buffer.isNotEmpty()) {
+                chainedSelectors.add(buffer.toString())
+            }
+
+            chainedSelectors.forEach { tokens.add(valueOf(it)) }
         }
 
         return tokens
