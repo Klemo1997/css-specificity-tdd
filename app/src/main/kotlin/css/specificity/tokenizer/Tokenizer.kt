@@ -32,25 +32,29 @@ class Tokenizer {
                 continue
             }
 
-            val buffer = StringBuilder()
-            val chainedSelectors = arrayListOf<String>()
-
-            for (char in current) {
-                if (buffer.isNotEmpty() && char.toString().matches(chainDelimiter)) {
-                    chainedSelectors.add(buffer.toString())
-                    buffer.clear()
-                }
-
-                buffer.append(char)
-            }
-
-            if (buffer.isNotEmpty()) {
-                chainedSelectors.add(buffer.toString())
-            }
-
-            chainedSelectors.forEach { tokens.add(valueOf(it)) }
+            getChainedSelectors(current).forEach { tokens.add(valueOf(it)) }
         }
 
         return tokens
+    }
+
+    private fun getChainedSelectors(current: String): List<String> {
+        val buffer = StringBuilder()
+        val chainedSelectors = arrayListOf<String>()
+
+        for (char in current) {
+            if (buffer.isNotEmpty() && char.toString().matches(chainDelimiter)) {
+                chainedSelectors.add(buffer.toString())
+                buffer.clear()
+            }
+
+            buffer.append(char)
+        }
+
+        if (buffer.isNotEmpty()) {
+            chainedSelectors.add(buffer.toString())
+        }
+
+        return chainedSelectors
     }
 }
