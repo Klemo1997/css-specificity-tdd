@@ -19,16 +19,16 @@ class Tokenizer {
 
     fun tokenize(selector: String): List<Specificity> {
         val tokens = mutableListOf<Specificity>()
-        val s = Stack<String>()
+        val queue = LinkedList<String>()
 
-        s.push(selector.trim())
+        queue.push(selector.trim())
 
-        while (s.isNotEmpty()) {
-            val current = s.pop()
+        while (queue.isNotEmpty()) {
+            val current = queue.removeFirst()
             val subSelectors = current.trim().split(delimiter)
 
             if (subSelectors.size > 1) {
-                subSelectors.forEach { s.push(it) }
+                subSelectors.forEach { queue.addLast(it) }
                 continue
             }
 
