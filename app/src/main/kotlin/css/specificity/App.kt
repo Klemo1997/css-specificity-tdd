@@ -9,8 +9,10 @@ fun main() {
     println(getSpecificity("*"))
 }
 
+private val attributeStringValueMatcher = """(?<!\\)"(?:\\"|[^"])*"""".toRegex()
+
 fun getSpecificity(selector: String): Specificity {
-    val sanitizedSelector = selector.replace("""(?<!\\)"(?:\\"|[^"])*"""".toRegex(), "1")
+    val sanitizedSelector = selector.replace(attributeStringValueMatcher, "1")
     return Tokenizer().tokenize(sanitizedSelector).sum()
 }
 
