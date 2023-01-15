@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
 typealias Specificity = Triple<Int, Int, Int>
 
 class AppTest {
-    @Test fun `It returns correct speficicity`() {
+    @Test fun `It returns correct specificity`() {
         mapOf(
             "*" to Specificity(0, 0, 0),
             " * div " to Specificity(0, 0, 1),
