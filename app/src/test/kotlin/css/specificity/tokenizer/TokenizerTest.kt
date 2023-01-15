@@ -1,5 +1,6 @@
 package css.specificity.tokenizer
 
+import css.specificity.matchers
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -23,7 +24,7 @@ class TokenizerTest {
             "test[a=1]" to listOf(Specificity(0, 0, 1), Specificity(0, 1, 0)),
         ).forEach { (selector, tokens) -> assertEquals(
             tokens,
-            Tokenizer().tokenize(selector),
+            Tokenizer(matchers).tokenize(selector),
             "Tokenizer evaluates the selector: '$selector' to have specificity: ${tokens.joinToString(", ")}",
         ) }
     }
@@ -44,7 +45,7 @@ class TokenizerTest {
             "test[a=1] test" to listOf(Specificity(0, 0, 1), Specificity(0, 1, 0), Specificity(0, 0, 1)),
         ).forEach { (selector, tokens) -> assertEquals(
             tokens,
-            Tokenizer().tokenize(selector),
+            Tokenizer(matchers).tokenize(selector),
             "Tokenizer evaluates the selector: '$selector' to have specificity: ${tokens.joinToString(", ")}",
         ) }
     }

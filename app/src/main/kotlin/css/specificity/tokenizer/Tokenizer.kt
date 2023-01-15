@@ -5,16 +5,12 @@ import java.util.*
 
 typealias Specificity = Triple<Int, Int, Int>
 
-class Tokenizer {
+class Tokenizer(private val matchers: List<Matcher>) {
     private val delimiter = """(?<!\\)[\s>+~]+(?!=)""".toRegex()
     private val chainDelimiter = """(?<!\\)(\.|#|\[)""".toRegex()
 
-    private fun valueOf(selector: String): Specificity = when {
-        ElementMatcher().isValid(selector) -> Specificity(0, 0, 1)
-        ClassMatcher().isValid(selector) -> Specificity(0, 1, 0)
-        IdMatcher().isValid(selector) -> Specificity(1, 0, 0)
-        AttributeMatcher().isValid(selector) -> Specificity(0, 1, 0)
-        else -> Specificity(0, 0, 0)
+    private fun valueOf(selector: String): Specificity {
+        return matchers.find { it.isValid(selector) }?.getSpecificity() ?: Specificity(0, 0, 0)
     }
 
     fun tokenize(selector: String): List<Specificity> {

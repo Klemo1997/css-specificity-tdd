@@ -11,9 +11,16 @@ fun main() {
 
 private val attributeStringValueMatcher = """(?<!\\)"(?:\\"|[^"])*"""".toRegex()
 
+val matchers = listOf(
+    ElementMatcher(),
+    ClassMatcher(),
+    IdMatcher(),
+    AttributeMatcher(),
+)
+
 fun getSpecificity(selector: String): Specificity {
     val sanitizedSelector = selector.replace(attributeStringValueMatcher, "1")
-    return Tokenizer().tokenize(sanitizedSelector).sum()
+    return Tokenizer(matchers).tokenize(sanitizedSelector).sum()
 }
 
 fun List<Specificity>.sum() =
