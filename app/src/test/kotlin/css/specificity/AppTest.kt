@@ -42,6 +42,13 @@ class AppTest {
             "test[a^=1]" to Specificity(0, 1, 1),
             "test[a$=1]" to Specificity(0, 1, 1),
             "test[a*=1]" to Specificity(0, 1, 1),
+            """test\[[a=1]""" to Specificity(0, 1, 1),
+            """test[a="text[]"]""" to Specificity(0, 1, 1),
+            """test[a="text["]""" to Specificity(0, 1, 1),
+            """test\[[a="text["]""" to Specificity(0, 1, 1),
+            """test[a="text["].test""" to Specificity(0, 2, 1),
+            """.test[a="test\"[]"][b="test\"[]"]""" to Specificity(0, 3, 0),
+            """.test[a*=".pdf"]""" to Specificity(0, 2, 0),
         ).forEach {
             (selector, specificity) -> assertEquals(
                 specificity,

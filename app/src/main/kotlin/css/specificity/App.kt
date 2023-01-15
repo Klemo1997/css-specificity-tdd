@@ -9,7 +9,10 @@ fun main() {
     println(getSpecificity("*"))
 }
 
-fun getSpecificity(selector: String): Specificity = Tokenizer().tokenize(selector).sum()
+fun getSpecificity(selector: String): Specificity {
+    val sanitizedSelector = selector.replace("""(?<!\\)"(?:\\"|[^"])*"""".toRegex(), "1")
+    return Tokenizer().tokenize(sanitizedSelector).sum()
+}
 
 fun List<Specificity>.sum() =
     this.fold(Specificity(0, 0, 0)) { acc, specificity -> acc.add(specificity) }
