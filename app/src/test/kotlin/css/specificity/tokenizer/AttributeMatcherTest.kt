@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 class AttributeMatcherTest {
     @Test
     fun `it correctly recognizes valid class selectors from invalid ones`() {
-        mapOf(
+        listOf(
             "" to false,
             "*" to false,
             "test" to false,

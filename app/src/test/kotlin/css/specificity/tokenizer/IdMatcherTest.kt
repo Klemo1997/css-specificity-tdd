@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 class IdMatcherTest {
     @Test
     fun `it correctly recognizes valid id selectors from invalid ones`() {
-        mapOf(
+        listOf(
             "" to false,
             "*" to false,
             "test" to false,

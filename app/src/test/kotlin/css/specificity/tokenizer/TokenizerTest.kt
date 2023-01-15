@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 
 class TokenizerTest {
     @Test fun `Tokenizer returns correctly parsed list of specificities`() {
-        mapOf(
+        listOf(
             "" to listOf(),
             "*" to listOf(Specificity(0, 0, 0)),
             "div" to listOf(Specificity(0, 0, 1)),
@@ -29,7 +29,7 @@ class TokenizerTest {
     }
 
     @Test fun `Tokenizer should return selector with delimiters with guaranteed order`() {
-        mapOf(
+        listOf(
             "*" to listOf(Specificity(0, 0, 0)),
             "* div" to listOf(Specificity(0, 0, 0), Specificity(0, 0, 1)),
             "div" to listOf(Specificity(0, 0, 1)),

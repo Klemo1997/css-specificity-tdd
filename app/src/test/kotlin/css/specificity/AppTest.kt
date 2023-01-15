@@ -9,7 +9,7 @@ import css.specificity.tokenizer.Specificity
 
 class AppTest {
     @Test fun `It returns correct specificity`() {
-        mapOf(
+        listOf(
             "*" to Specificity(0, 0, 0),
             " * div " to Specificity(0, 0, 1),
             "* div" to Specificity(0, 0, 1),

@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 class ElementMatcherTest {
     @Test
     fun `it correctly recognizes valid element selectors from invalid ones`() {
-        mapOf(
+        listOf(
             "" to false,
             "*" to false,
             ".test" to false,
