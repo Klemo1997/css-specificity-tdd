@@ -6,7 +6,7 @@ import java.util.*
 typealias Specificity = Triple<Int, Int, Int>
 
 class Tokenizer {
-    private val delimiter = """[\s>+~]+(?!=)""".toRegex()
+    private val delimiter = """(?<!\\)[\s>+~]+(?!=)""".toRegex()
     private val chainDelimiter = """(\.|#|\[)""".toRegex()
 
     private fun valueOf(selector: String): Specificity = when {

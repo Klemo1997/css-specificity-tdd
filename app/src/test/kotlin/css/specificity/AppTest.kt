@@ -25,6 +25,8 @@ class AppTest {
             "body>div" to Specificity(0, 0, 2),
             "body > div" to Specificity(0, 0, 2),
             """body \> div""" to Specificity(0, 0, 3),
+            """body \~ div""" to Specificity(0, 0, 3),
+            """body \~div""" to Specificity(0, 0, 2),
             "body + div" to Specificity(0, 0, 2),
             "body ~ div" to Specificity(0, 0, 2),
             ".test" to Specificity(0, 1, 0),
