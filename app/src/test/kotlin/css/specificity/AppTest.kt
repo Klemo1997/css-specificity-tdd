@@ -35,6 +35,11 @@ class AppTest {
             "#test#test" to Specificity(2, 0, 0),
             ".test#test#test" to Specificity(2, 1, 0),
             "test[a=1] test" to Specificity(0, 1, 2),
+            "test[a~=1]" to Specificity(0, 1, 1),
+            "test[a|=1]" to Specificity(0, 1, 1),
+            "test[a^=1]" to Specificity(0, 1, 1),
+            "test[a$=1]" to Specificity(0, 1, 1),
+            "test[a*=1]" to Specificity(0, 1, 1),
         ).forEach {
             (selector, specificity) -> assertEquals(
                 specificity,
