@@ -50,6 +50,8 @@ class AppTest {
             """test[a="text["].test""" to Specificity(0, 2, 1),
             """.test[a="test\"[]"][b="test\"[]"]""" to Specificity(0, 3, 0),
             """.test[a*=".pdf"]""" to Specificity(0, 2, 0),
+            """test::before""" to Specificity(0, 0, 2),
+            """test\:\:before""" to Specificity(0, 0, 1),
         ).forEach {
             (selector, specificity) -> assertEquals(
                 specificity,

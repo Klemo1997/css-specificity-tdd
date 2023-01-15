@@ -12,6 +12,7 @@ fun main() {
 private val attributeStringValueMatcher = """(?<!\\)"(?:\\"|[^"])*"""".toRegex()
 
 val matchers = listOf(
+    PseudoElementMatcher(),
     ElementMatcher(),
     ClassMatcher(),
     IdMatcher(),
