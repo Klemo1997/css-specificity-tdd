@@ -33,6 +33,8 @@ class AppTest {
             ".test .test2" to Specificity(0, 2, 0),
             "body .test .test2" to Specificity(0, 2, 1),
             ".test.test" to Specificity(0, 2, 0),
+            """.test\.test""" to Specificity(0, 1, 0),
+            """.test\#test""" to Specificity(0, 1, 0),
             "#test #test" to Specificity(2, 0, 0),
             "#test#test" to Specificity(2, 0, 0),
             ".test#test#test" to Specificity(2, 1, 0),

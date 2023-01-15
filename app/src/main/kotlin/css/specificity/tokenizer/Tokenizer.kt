@@ -7,7 +7,7 @@ typealias Specificity = Triple<Int, Int, Int>
 
 class Tokenizer {
     private val delimiter = """(?<!\\)[\s>+~]+(?!=)""".toRegex()
-    private val chainDelimiter = """(\.|#|\[)""".toRegex()
+    private val chainDelimiter = """(?<!\\)(\.|#|\[)""".toRegex()
 
     private fun valueOf(selector: String): Specificity = when {
         ElementMatcher().isValid(selector) -> Specificity(0, 0, 1)
@@ -41,9 +41,10 @@ class Tokenizer {
     private fun getChainedSelectors(current: String): List<String> {
         val buffer = StringBuilder()
         val chainedSelectors = arrayListOf<String>()
+        val chainStartIndices = chainDelimiter.findAll(current).map { it.range.first }
 
-        for (char in current) {
-            if (buffer.isNotEmpty() && char.toString().matches(chainDelimiter)) {
+        for ((index, char) in current.withIndex()) {
+            if (buffer.isNotEmpty() && chainStartIndices.contains(index)) {
                 chainedSelectors.add(buffer.toString())
                 buffer.clear()
             }
