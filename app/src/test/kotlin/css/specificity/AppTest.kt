@@ -5,8 +5,7 @@ package css.specificity
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-
-typealias Specificity = Triple<Int, Int, Int>
+import css.specificity.tokenizer.Specificity
 
 class AppTest {
     @Test fun `It returns correct specificity`() {
